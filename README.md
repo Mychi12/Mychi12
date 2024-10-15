@@ -20,3 +20,33 @@ Todas están relacionadas con el registro de nuevos usuarios. Si tienes versione
 procesarCalificaciones.jsp, procesarLoginDocente.jsp, procesarLoginAlumno.jsp, procesarRegistroAlumno.jsp, procesarRegistroDocente.jsp, registerProcess.jsp:
 
 Estos son probablemente los archivos que procesan los formularios y manejan la lógica en el servidor. Son necesarios para el flujo de la aplicación. No los elimines, pero podrías combinarlos si encuentras redundancias.
+
+Configura la base de datos:
+Ejecuta el siguiente SQL para crear las tablas necesarias:
+
+CREATE TABLE Alumnos (
+    id INT PRIMARY KEY IDENTITY(1,1),
+    nombre NVARCHAR(100),
+    contraseña NVARCHAR(100),
+    curso NVARCHAR(100)
+);
+
+CREATE TABLE Docentes (
+    id INT PRIMARY KEY IDENTITY(1,1),
+    nombre NVARCHAR(100),
+    contraseña NVARCHAR(100)
+);
+
+CREATE TABLE Calificaciones (
+    id INT PRIMARY KEY IDENTITY(1,1),
+    alumno_id INT FOREIGN KEY REFERENCES Alumnos(id),
+    curso NVARCHAR(100),
+    calificacion INT
+);
+
+Es Necesario tener un JDCB Driver y Jar en java para hacer la conexion y se vea reflejado en el proyecto (Recomendacion usar la version 8 no la 11)
+
+String url = "jdbc:sqlserver://localhost\\SQLEXPRESS:55555;databaseName=Estudiantes;encrypt=true;trustServerCertificate=true;";
+String dbUser = "sa";
+String dbPassword = "123456";
+
